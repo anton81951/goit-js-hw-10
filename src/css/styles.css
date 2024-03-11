@@ -37,3 +37,10 @@ img {
 .label {
   font-size: 20px;
 }
+
+form {
+  max-width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
