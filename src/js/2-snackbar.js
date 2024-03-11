@@ -40,6 +40,5 @@ form.addEventListener('submit', function(event) {
                 position: 'topCenter'
             });
         });
-
     form.reset();
 });
