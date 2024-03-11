@@ -42,7 +42,6 @@ const options = {
 const picker = flatpickr("#datetime-picker", options);
 
 function convertMs(ms) {
-  // Number of milliseconds per unit of time
   const second = 1000;
   const minute = second * 60;
   const hour = minute * 60;
@@ -95,7 +94,11 @@ button.addEventListener("click", function() {
   const selectedDate = picker.selectedDates[0];
 
   if (!selectedDate) {
-    alert("Please choose a date");
+    iziToast.error({
+      title: 'Error',
+      message: 'Please choose a date',
+      position: 'topCenter'
+    });
     return;
   }
 
