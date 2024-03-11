@@ -3,7 +3,6 @@ import "flatpickr/dist/flatpickr.min.css";
 import iziToast from "izitoast";
 import "izitoast/dist/css/iziToast.min.css";
 
-
 const button = document.querySelector("[data-start]");
 const timerFields = {
   days: document.querySelector("[data-days]"),
@@ -13,31 +12,30 @@ const timerFields = {
 };
 
 let countdownInterval;
+let selectedDate;
 
 const options = {
-    enableTime: true,
-    time_24hr: true,
-    defaultDate: new Date(),
-    minuteIncrement: 1,
-    onClose(selectedDates) {
-      const selectedDate = selectedDates[0];
-      const currentDate = new Date();
-      if (selectedDate < currentDate) {
-        iziToast.error({
-          title: 'Error',
-          message: 'Please choose a date in the future and reload the page',
-          position: 'topCenter'
-        });
-        picker.clear();
-        button.disabled = true;
-      } else {
-        picker.close();
-        startCountdown(selectedDate);
-        button.disabled = true;
-      }
-    },
-  };
-  
+  enableTime: true,
+  time_24hr: true,
+  defaultDate: new Date(),
+  minuteIncrement: 1,
+  onClose(selectedDates) {
+    selectedDate = selectedDates[0];
+    const currentDate = new Date();
+    if (selectedDate < currentDate) {
+      iziToast.error({
+        title: 'Error',
+        message: 'Please choose a date in the future and reload the page',
+        position: 'topCenter'
+      });
+      picker.clear();
+      button.disabled = true;
+    } else {
+      picker.close();
+      button.disabled = false;
+    }
+  },
+};
 
 const picker = flatpickr("#datetime-picker", options);
 
@@ -59,7 +57,7 @@ function convertMs(ms) {
   return { days, hours, minutes, seconds };
 }
 
-function startCountdown(selectedDate) {
+function startCountdown() {
   clearInterval(countdownInterval);
 
   countdownInterval = setInterval(() => {
@@ -90,9 +88,7 @@ function formatTimeValue(value) {
   return value < 10 ? `0${value}` : value;
 }
 
-button.addEventListener("click", function() {
-  const selectedDate = picker.selectedDates[0];
-
+button.addEventListener("click", function () {
   if (!selectedDate) {
     iziToast.error({
       title: 'Error',
@@ -102,5 +98,5 @@ button.addEventListener("click", function() {
     return;
   }
 
-  startCountdown(selectedDate);
+  startCountdown();
 });
