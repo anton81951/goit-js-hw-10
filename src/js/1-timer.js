@@ -22,7 +22,9 @@ const options = {
   onClose(selectedDates) {
     selectedDate = selectedDates[0];
     const currentDate = new Date();
-    if (selectedDate < currentDate) {
+    if (selectedDate >= currentDate) {
+      button.disabled = false;
+    } else {
       iziToast.error({
         title: 'Error',
         message: 'Please choose a date in the future and reload the page',
@@ -30,9 +32,6 @@ const options = {
       });
       picker.clear();
       button.disabled = true;
-    } else {
-      picker.close();
-      button.disabled = false;
     }
   },
 };
