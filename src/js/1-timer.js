@@ -4,6 +4,8 @@ import iziToast from "izitoast";
 import "izitoast/dist/css/iziToast.min.css";
 
 const button = document.querySelector("[data-start]");
+button.disabled = true;
+
 const timerFields = {
   days: document.querySelector("[data-days]"),
   hours: document.querySelector("[data-hours]"),
